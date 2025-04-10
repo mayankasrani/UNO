@@ -1,49 +1,75 @@
-/**
- * SYST 17796 Project Base code.
- * Students can modify and extend to implement their game.
- * Add your name as an author and the date!
- */
 package ca.sheridancollege.project;
 
-/**
- * A class that models each Player in the game. Players have an identifier, which should be unique.
- *
- * @author dancye
- * @author Paul Bonenfant Jan 2020
- */
-public abstract class Player {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
-    private String name; //the unique name for this player
+public class Player {
+    private String name;
+    private List<Card> hand;
+    private boolean hasCalledUNO;
 
-    /**
-     * A constructor that allows you to set the player's unique ID
-     *
-     * @param name the unique ID to assign to this player.
-     */
     public Player(String name) {
         this.name = name;
+        this.hand = new ArrayList<>();
+        this.hasCalledUNO = false;
     }
 
-    /**
-     * @return the player name
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * Ensure that the playerID is unique
-     *
-     * @param name the player name to set
-     */
-    public void setName(String name) {
-        this.name = name;
+    public List<Card> getHand() {
+        return hand;
     }
 
-    /**
-     * The method to be overridden when you subclass the Player class with your specific type of Player and filled in
-     * with logic to play your game.
-     */
-    public abstract void play();
+    public boolean hasWon() {
+        return hand.isEmpty();
+    }
 
-}
+    public void callUNO() {
+        if (hand.size() == 1) {
+            hasCalledUNO = true;
+            System.out.println(name + " called UNO!");
+        }
+    }
+
+    public Card playTurn(Card topCard, GroupOfCards deck) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Top card: " + topCard.getColor() + " " + topCard.getType());
+        System.out.println("Your hand:");
+        for (int i = 0; i < hand.size(); i++) {
+            Card c = hand.get(i);
+            System.out.println(i + ": " + c.getColor() + " " + c.getType());
+        }
+
+        System.out.print("Enter card number to play (-1 to draw): ");
+        int choice = scanner.nextInt();
+
+        if (choice >= 0 && choice < hand.size()) {
+            Card chosen = hand.get(choice);
+            if (chosen.isPlayableOn(topCard)) {
+                hand.remove(choice);
+                if (hand.size() == 1) {
+                    System.out.print("Do you want to call UNO? (yes/no): ");
+                    String response = scanner.next().toLowerCase();
+                    if (response.equals("yes")) {
+                        callUNO();
+                    } else {
+                        System.out.println("You forgot to call UNO! Drawing 2 penalty cards.");
+                        hand.add(deck.drawCard());
+                        hand.add(deck.drawCard());
+                    }
+                }
+                return chosen;
+            } else {
+                System.out.println("Invalid move. You must draw a card.");
+            }
+        }
+
+        // Draw if invalid or chose to draw
+        hand.add(deck.drawCard());
+        return null;
+    }
+} 

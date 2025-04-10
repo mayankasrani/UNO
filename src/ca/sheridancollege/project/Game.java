@@ -1,27 +1,29 @@
 /**
- * SYST 17796 Project Base code.
+ * SYST 17796 Project Base code - Modified for UNO.
  * Students can modify and extend to implement their game.
- * Add your name as an author and the date!
+ * Updated by: Mayank Asrani, Joann Monteiro, Brandon Lamarre
+ * Date: April 2025
  */
 package ca.sheridancollege.project;
 
 import java.util.ArrayList;
 
 /**
- * The class that models your game. You should create a more specific child of this class and instantiate the methods
- * given.
+ * The abstract Game class serves as a base for implementing the UNO game.
+ * This class was extended by UnoGame to include complete game logic.
  *
  * @author dancye
  * @author Paul Bonenfant Jan 2020
+ * @author Wildcard Developers - Modified April 2025
  */
 public abstract class Game {
 
-    private final String name;//the title of the game
-    private ArrayList<Player> players;// the players of the game
+    private final String name; // the title of the game
+    private ArrayList<Player> players; // the players of the game
 
     public Game(String name) {
         this.name = name;
-        players = new ArrayList();
+        players = new ArrayList<>();
     }
 
     /**
@@ -55,4 +57,4 @@ public abstract class Game {
      */
     public abstract void declareWinner();
 
-}//end class
+} // end class
