@@ -34,14 +34,14 @@ public class Player {
         }
     }
 
+    // Handles player decision: play a card or draw
     public Card playTurn(Card topCard, GroupOfCards deck) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Top card: " + topCard.getColor() + " " + topCard.getType());
+        System.out.println("Top card: " + topCard.toString());
         System.out.println("Your hand:");
         for (int i = 0; i < hand.size(); i++) {
-            Card c = hand.get(i);
-            System.out.println(i + ": " + c.getColor() + " " + c.getType());
+            System.out.println(i + ": " + hand.get(i));
         }
 
         System.out.print("Enter card number to play (-1 to draw): ");
@@ -49,8 +49,11 @@ public class Player {
 
         if (choice >= 0 && choice < hand.size()) {
             Card chosen = hand.get(choice);
+
             if (chosen.isPlayableOn(topCard)) {
                 hand.remove(choice);
+
+                // Check for UNO condition
                 if (hand.size() == 1) {
                     System.out.print("Do you want to call UNO? (yes/no): ");
                     String response = scanner.next().toLowerCase();
@@ -62,14 +65,15 @@ public class Player {
                         hand.add(deck.drawCard());
                     }
                 }
+
                 return chosen;
             } else {
                 System.out.println("Invalid move. You must draw a card.");
             }
         }
 
-        // Draw if invalid or chose to draw
+        // If player chose to draw or picked an invalid card
         hand.add(deck.drawCard());
         return null;
     }
-} 
+}

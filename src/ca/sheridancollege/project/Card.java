@@ -17,11 +17,16 @@ public abstract class Card {
         return type;
     }
 
-    public abstract void applyEffect(UnoGame game);
-
+    // Check whether this card can be played on the top card
     public boolean isPlayableOn(Card topCard) {
-        return this.color.equals(topCard.color) || this.type.equals(topCard.type) || this.color.equals("BLACK");
+        String activeColor = UnoGame.currentColorOverride != null
+                             ? UnoGame.currentColorOverride
+                             : topCard.getColor();
+
+        return this.color.equals(activeColor) || this.type.equals(topCard.type) || this.color.equals("BLACK");
     }
+
+    public abstract void applyEffect(UnoGame game);
 
     @Override
     public String toString() {

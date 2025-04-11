@@ -7,6 +7,7 @@ public class ReverseCard extends Card {
 
     @Override
     public void applyEffect(UnoGame game) {
+        // Change the direction of play
         game.reverseOrder();
     }
 

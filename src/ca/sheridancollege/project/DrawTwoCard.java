@@ -7,6 +7,7 @@ public class DrawTwoCard extends Card {
 
     @Override
     public void applyEffect(UnoGame game) {
+        // Next player draws two cards and loses their turn
         game.drawCardsForNextPlayer(2);
         game.skipNextPlayer();
     }

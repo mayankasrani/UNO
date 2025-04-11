@@ -7,6 +7,7 @@ public class SkipCard extends Card {
 
     @Override
     public void applyEffect(UnoGame game) {
+        // Skip the next player's turn
         game.skipNextPlayer();
     }
 

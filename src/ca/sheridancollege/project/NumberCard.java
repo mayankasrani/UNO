@@ -14,11 +14,12 @@ public class NumberCard extends Card {
 
     @Override
     public void applyEffect(UnoGame game) {
+        // No special effect, just advance the turn
         game.advanceTurn();
     }
 
     @Override
     public String toString() {
-        return getColor() + " " + number;
+        return getColor() + " " + number; // e.g., RED 5
     }
 }

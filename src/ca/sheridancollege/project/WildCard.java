@@ -7,6 +7,7 @@ public class WildCard extends Card {
 
     @Override
     public void applyEffect(UnoGame game) {
+        // Current player chooses the next color
         game.promptPlayerToChooseColor();
         game.advanceTurn();
     }

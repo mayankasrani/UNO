@@ -7,6 +7,7 @@ public class WildDrawFourCard extends Card {
 
     @Override
     public void applyEffect(UnoGame game) {
+        // Choose color, next player draws four cards and loses turn
         game.promptPlayerToChooseColor();
         game.drawCardsForNextPlayer(4);
         game.skipNextPlayer();
